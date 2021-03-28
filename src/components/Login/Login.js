@@ -11,7 +11,7 @@ const Login = () => {
     const [loggedInUser, setLoggedInUser] = useContext(UserContext);
     const history = useHistory();
     const location = useLocation();
-    const  { from } = location.state || { from: { pathname: "/" } };
+    const { from } = location.state || { from: { pathname: "/" } };
     if (!firebase.apps.length) {
         firebase.initializeApp(firebaseConfig);
     } else {
@@ -25,7 +25,8 @@ const Login = () => {
                 const { displayName, email } = result.user;
                 const signedInUser = { name: displayName, email }
                 setLoggedInUser(signedInUser);
-                history.replace(from);
+                storeAuthToken();
+                // history.replace(from);
             }).catch((error) => {
                 var errorCode = error.code;
                 var errorMessage = error.message;
@@ -33,6 +34,18 @@ const Login = () => {
                 var credential = error.credential;
             });
     }
+
+    const storeAuthToken = () => {
+        firebase.auth().currentUser.getIdToken(true)
+            .then(function (idToken) {
+                // console.log(idToken);
+                sessionStorage.setItem('token', idToken);
+                history.replace(from);
+            }).catch(function (error) {
+                // Handle error
+            });
+    }
+
     return (
         <div>
             <h1>This is Login</h1>
