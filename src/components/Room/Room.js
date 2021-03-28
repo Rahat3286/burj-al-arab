@@ -38,12 +38,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Room({room}){
+export default function Room({ room }) {
   const classes = useStyles();
   const history = useHistory()
-    const handleBook = (bedType) => {
-        history.push(`/book/${bedType}`);
-    }
+  const handleBook = (bedType) => {
+    history.push(`/book/${bedType}`);
+  }
   return (
     <Card className={classes.root}>
       <CardHeader
@@ -68,16 +68,16 @@ export default function Room({room}){
       </CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
-          <LocalHotelIcon />: {room.bed} 
+          <LocalHotelIcon />: {room.bed}
         </IconButton>
         <IconButton aria-label="share">
-          <WcIcon />: {room.capacity} 
+          <WcIcon />: {room.capacity}
         </IconButton>
         <IconButton aria-label="price">
-          <AttachMoneyIcon />: {room.price} 
+          <AttachMoneyIcon />: {room.price}
         </IconButton>
         <Button onClick={() => handleBook(room.bedType)} variant="contained" color="primary">
-            Book
+          Book
         </Button>
       </CardActions>
     </Card>
